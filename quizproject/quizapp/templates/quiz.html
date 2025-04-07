@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Take Quiz - Quiz App{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Quiz Time!</h2>
+
+{% if not questions %}
+    <div class="alert alert-warning">No questions have been added yet.</div>
+{% else %}
+    <form method="post" action="{% url 'quiz' %}">
+        {% csrf_token %}
+        {% for question in questions %}
+            <div class="card mb-3">
+                <div class="card-header">
+                    <strong>Question {{ forloop.counter }}</strong>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ question.text }}</p>
+                    <div class="list-group">
+                         <label class="list-group-item">
+                            <input class="form-check-input me-1" type="radio" name="question_{{ question.id }}" value="1" required>
+                            {{ question.option1 }}
+                         </label>
+                         <label class="list-group-item">
+                            <input class="form-check-input me-1" type="radio" name="question_{{ question.id }}" value="2" required>
+                            {{ question.option2 }}
+                         </label>
+                         <label class="list-group-item">
+                            <input class="form-check-input me-1" type="radio" name="question_{{ question.id }}" value="3" required>
+                            {{ question.option3 }}
+                         </label>
+                          <label class="list-group-item">
+                            <input class="form-check-input me-1" type="radio" name="question_{{ question.id }}" value="4" required>
+                            {{ question.option4 }}
+                         </label>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary btn-lg mt-3">Submit Answers</button>
+    </form>
+{% endif %}
+{% endblock %}

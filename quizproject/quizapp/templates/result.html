@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}Quiz Result - Quiz App{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card text-center">
+             <div class="card-header">
+                <h2>Quiz Completed!</h2>
+             </div>
+             <div class="card-body">
+                <h5 class="card-title">Your Score</h5>
+                <p class="display-4">{{ result.score }} / {{ result.total_questions }}</p>
+                <p class="fs-4">({{ result.percentage }}%)</p>
+                <a href="{% url 'quiz' %}" class="btn btn-info">Try Again</a>
+                <a href="{% url 'view_scores' %}" class="btn btn-secondary">View All My Scores</a>
+                <a href="{% url 'home' %}" class="btn btn-primary">Go Home</a>
+             </div>
+             <div class="card-footer text-muted">
+                 Attempted on: {{ result.timestamp|date:"F j, Y, P" }}
+             </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
